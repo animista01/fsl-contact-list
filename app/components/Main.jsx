@@ -2,7 +2,9 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import Lists from './Lists'
 import AllContacts from './AllContacts';
+import NewContacts from './NewContacts';
 import uuid from 'uuid';
+import Contact from './Contact';
 
 export default class Main extends React.Component {
   constructor() {
@@ -30,22 +32,22 @@ export default class Main extends React.Component {
       <main>
         <Switch>
           <Route exact path='/' component={Lists}/>
+          <Route path='/contacts/new' render={(props) => (
+            <NewContacts contacts={this.state.contacts} onNewContact={this.handleNewContact} />
+          )}/>
           <Route path='/contacts' render={(props) => (
-            <AllContacts contacts={this.state.contacts}/>
+            <AllContacts contacts={this.state.contacts} />
           )}/>
         </Switch>
       </main>
     )
   }
 
-  addContact = () => {
-  	this.setState({
-      contacts: this.state.contacts.concat([{
-        id: uuid.v4(),
-        name: 'New contact',
-		    last_name: 'Last name',
-		    phone: 3015423912
-      }])
+  handleNewContact = (user) => {
+    console.log("Hey new")
+    console.log(user)
+    this.setState({
+      contacts: this.state.contacts.concat([user])
     });
   }
 }

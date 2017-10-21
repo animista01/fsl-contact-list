@@ -4,18 +4,41 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 export default class AllContacts extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      search: ''
+    }
+  }
+   
   render(){
+    let filteredContacts = this.props.contacts.filter(
+      (contact) => {
+        return contact.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 || contact.last_name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 
+      }
+    )
     return (
       <div>
-        <ul>{this.props.contacts.map(contact =>
-          <li key={contact.id}>
-            <Link to={`/contacts/${contact.id}`}>
-              {contact.name} - {contact.last_name}
-            </Link>
-      	</li>
-        )}</ul>
-        <button onClick={this.addContact}>+</button>
+        <input type="text"
+        placeholder="Search"
+        value={this.state.search}
+        onChange={this.updateSearch.bind(this)}
+        />
+        <ul>
+          {filteredContacts.map(contact =>
+            <li key={contact.id}>
+              <Link to={`/contacts/${contact.id}`}>
+                {contact.name} - {contact.last_name}
+              </Link>
+      	   </li>
+          )}
+        </ul>
+        <Link to='/contacts/new'>New</Link>
       </div>
     );
+  }
+
+  updateSearch(event){
+    this.setState({search: event.target.value.substr(0, 20)})
   }
 }
