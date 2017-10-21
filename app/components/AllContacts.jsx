@@ -4,17 +4,15 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 export default class AllContacts extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      search: ''
-    }
+  state = {
+    search: ''
   }
-   
+
   render(){
     let filteredContacts = this.props.contacts.filter(
       (contact) => {
-        return contact.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 || contact.last_name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 
+        return contact.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
+        contact.last_name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1
       }
     )
     return (
@@ -22,7 +20,7 @@ export default class AllContacts extends React.Component {
         <input type="text"
         placeholder="Search"
         value={this.state.search}
-        onChange={this.updateSearch.bind(this)}
+        onChange={this.updateSearch}
         />
         <ul>
           {filteredContacts.map(contact =>
@@ -38,7 +36,7 @@ export default class AllContacts extends React.Component {
     );
   }
 
-  updateSearch(event){
+  updateSearch = (event) => {
     this.setState({search: event.target.value.substr(0, 20)})
   }
 }

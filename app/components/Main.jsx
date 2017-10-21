@@ -31,11 +31,13 @@ export default class Main extends React.Component {
     return(
       <main>
         <Switch>
-          <Route exact path='/' component={Lists}/>
           <Route path='/contacts/new' render={(props) => (
             <NewContacts contacts={this.state.contacts} onNewContact={this.handleNewContact} />
           )}/>
-          <Route path='/contacts' render={(props) => (
+          <Route path='/contacts/:contact_id' render={(props) => (
+            <Contact contacts={this.state.contacts} />
+          )}/>
+          <Route path='/' render={(props) => (
             <AllContacts contacts={this.state.contacts} />
           )}/>
         </Switch>
