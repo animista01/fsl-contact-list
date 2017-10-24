@@ -9,22 +9,6 @@ import Contact from './Contact';
 export default class Main extends React.Component {
   constructor() {
     super();
-    this.state = {
-  		contacts: [
-  		  {
-  		    id: uuid.v4(),
-  		    name: 'Bryan',
-  		    last_name: 'Villafane',
-  		    phone: 3015423912
-  		  },
-  		  {
-  		    id: uuid.v4(),
-  		    name: 'Maria',
-  		    last_name: 'Castro',
-  		    phone: 3015423943
-  		  }
-  		]
-  	}
   }
 
   render() {
