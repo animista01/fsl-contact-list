@@ -1,19 +1,6 @@
-const initialState = [
-  {
-    id: uuid.v4(),
-    name: 'Bryan',
-    last_name: 'Villafane',
-    phone: 3015423912
-  },
-  {
-    id: uuid.v4(),
-    name: 'Maria',
-    last_name: 'Castro',
-    phone: 3015423943
-  }
-]
+import { SET_CONTACTS } from '../actions/contacts';
 
-export default (state = initialState, action) => {
+export default (state = [], action) => {
   switch (action.type) {
     case SET_CONTACTS:
       return action.contacts;

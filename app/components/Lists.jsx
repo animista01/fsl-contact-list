@@ -1,17 +1,17 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom'
-import AllContacts from './AllContacts';
-import Contact from './Contact';
-import NewContacts from './NewContacts';
+import PropTypes from 'prop-types';
 
 export default class Lists extends React.Component {
+	static propTypes = {
+	  contact: PropTypes.object
+	};
   render(){
     return(
-      <Switch>
-        <Route exact path='/contacts' component={AllContacts}/>
-        <Route path='/contacts/:contact_id' component={Contact}/>
-        <Route path='/contacts/new' component={NewContacts}/>
-      </Switch>
+      <li id={this.props.contact.id}>
+      	<a href={`/contacts/${this.props.contact.id}`}>
+      		{this.props.contact.name} - {this.props.contact.last_name}
+      	</a>
+      </li>
     )
   }
 }

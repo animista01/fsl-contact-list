@@ -1,34 +1,30 @@
 import React from 'react';
 import Contact from './Contact';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
+import * as actions from '../actions/contacts';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import Lists from './Lists';
 
-export default class AllContacts extends React.Component {
-  state = {
-    search: ''
+export class AllContacts extends React.Component {
+  handleFilterContact = (e) => {
+    const _filter = e.target.value;
+    this.props.actions.filterContacts(_filter);
   }
 
   render(){
-    let filteredContacts = this.props.contacts.filter(
-      (contact) => {
-        return contact.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
-        contact.last_name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1
-      }
-    )
     return (
       <div>
         <input type="text"
         placeholder="Search"
-        value={this.state.search}
-        onChange={this.updateSearch}
+        onChange={this.handleFilterContact}
         />
         <ul>
-          {filteredContacts.map(contact =>
-            <li key={contact.id}>
-              <Link to={`/contacts/${contact.id}`}>
-                {contact.name} - {contact.last_name}
-              </Link>
-      	   </li>
+          {this.props.contacts.map(contact =>
+            <Lists
+              key={contact.id}
+              contact={contact}
+            />
           )}
         </ul>
         <Link to='/contacts/new'>New</Link>
@@ -36,7 +32,26 @@ export default class AllContacts extends React.Component {
     );
   }
 
-  updateSearch = (event) => {
-    this.setState({search: event.target.value.substr(0, 20)})
-  }
+  // handleNewContact = (user) => {
+  //   console.log("Hey new")
+  //   console.log(user)
+  //   this.setState({
+  //     contacts: this.state.contacts.concat([user])
+  //   });
+  // }
 }
+
+const mapStateToProps = _state => {
+  const { contacts } = _state;
+  return {
+    contacts
+  };
+};
+
+const mapDispatchToProps = _dispatch => {
+  return {
+    actions: bindActionCreators(actions, _dispatch),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AllContacts);
