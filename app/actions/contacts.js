@@ -14,6 +14,8 @@ let Contacts = [
 ]
 
 export const SET_CONTACTS = 'SET_CONTACTS';
+export const NEW_CONTACT = 'NEW_CONTACT';
+export const SET_CONTACT = 'SET_CONTACT';
 
 const setContacts = contacts => {
   return {
@@ -22,9 +24,30 @@ const setContacts = contacts => {
   };
 };
 
+const setContact = index => {
+  return {
+    type: SET_CONTACT,
+    index,
+  };
+};
+
+const newContact = contact => {
+  return {
+    type: NEW_CONTACT,
+    contact,
+  };
+};
+
+
 export function getContacts() {
   return dispatch => {
     dispatch(setContacts(Contacts));
+  }
+}
+
+export function getContact() {
+  return dispatch => {
+    dispatch(setContacts(Contact));
   }
 }
 

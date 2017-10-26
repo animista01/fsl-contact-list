@@ -1,4 +1,5 @@
 import React from 'react';
+import * as actions from '../actions/contacts';
 
 export default class Contact extends React.Component {
   state = {
@@ -6,6 +7,8 @@ export default class Contact extends React.Component {
   }
 
   componentWillMount(_nextProps) {
+    this.props.actions.filterContacts(_filter);
+  	
     const contactId = this.props.match.params.contact_id;
     console.log("--->", contactId)
     console.log("--->", this.props)

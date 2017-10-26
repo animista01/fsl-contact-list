@@ -2,8 +2,6 @@ import React from 'react';
 import Contact from './Contact';
 import { Link } from 'react-router-dom';
 import * as actions from '../actions/contacts';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import Lists from './Lists';
 
 export class AllContacts extends React.Component {
@@ -13,6 +11,8 @@ export class AllContacts extends React.Component {
   }
 
   render(){
+    console.log(this.appState.contacts)
+    console.log(this.props.contacts)
     return (
       <div>
         <input type="text"
@@ -40,18 +40,3 @@ export class AllContacts extends React.Component {
   //   });
   // }
 }
-
-const mapStateToProps = _state => {
-  const { contacts } = _state;
-  return {
-    contacts
-  };
-};
-
-const mapDispatchToProps = _dispatch => {
-  return {
-    actions: bindActionCreators(actions, _dispatch),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(AllContacts);
